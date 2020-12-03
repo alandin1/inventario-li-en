@@ -1,0 +1,27 @@
+h1 {
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 40px;
+    color: rgb(56, 102, 65);
+}
+
+li, p, form, td, th, h2 {
+    font-family: 'Questrial', sans-serif;
+    font-size: 22px;
+    color: rgb(255, 255, 255)
+}
+input {
+    font-family: 'Questrial', sans-serif;
+    font-size: 22px;
+    color: rgb(0, 0, 0)
+}
+table {
+    border-collapse: collapse;
+    border-color: rgb(133, 223, 106, 0.719);
+}
+body {
+    background-image: url(https://wallpaperaccess.com/full/812553.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    padding: 5%;
+}

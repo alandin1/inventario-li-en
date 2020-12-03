@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de inventario</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Playfair+Display|Playfair+Display+SC|Questrial&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Control de inventario</h1>
+    <div>
+        <h2>Añadir producto:</h2>
+            <input type="number" id="codigo" name="Codigo" placeholder="Código del producto">
+            <input type="text" id="nombre" name="Nombre" placeholder="Nombre del producto">
+            <input type="text" id="descripcion" name="Descripcion" placeholder="Descripción">
+            <input type="number" id="cantidad" name="Cantidad" placeholder="Cantidad">
+            <input type="number" id="costo" name="Costo" placeholder="Costo del producto">
+            <div>
+            <br>
+            <input type="button" id="btnAgregar" value="Agregar">
+            <input type="button" id="btnCalcular" value="Calcular costo"> 
+            </div>
+            <br>
+            <input type="number" id="posicion" name="Posicion" placeholder="Posición del producto"/>
+            <input type="button" id="btnInsertar" value="Insertar"/>
+            <br>
+        </div>
+        <div>
+            <h3>Borrar Producto</h3>
+            <input type="number" id="codBorrar" name="Codigo" placeholder="Posición de producto">
+            <input type="button" id="btnBorrar" value="Borrar">
+        </div>
+        <div>
+            <h3>Buscar Producto</h3>
+            <input type="number" id="codBuscar" name="Codigo" placeholder="Posición de producto">
+            <input type="button" id="btnBuscar" value="Buscar">
+        </div>
+        <div>
+            <h3>Listar Producto</h3>
+            <input type="button" id="btnListar" value="Listar">
+            <ul id="lista1"></ul>
+        </div>
+</body>
+<script src="main.js"></script>
+</html>
