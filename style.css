@@ -4,12 +4,12 @@ h1 {
     color: rgb(56, 102, 65);
 }
 
-li, p, form, td, th, h2 {
+li, p, form, td, th, h2, h3 {
     font-family: 'Questrial', sans-serif;
     font-size: 22px;
     color: rgb(255, 255, 255)
 }
-input {
+input, label {
     font-family: 'Questrial', sans-serif;
     font-size: 22px;
     color: rgb(0, 0, 0)

@@ -31,11 +31,9 @@ class Almacen {
             this.start = producto 
             this.end = producto
         } else {
-            let pod = this.end
-            while(pod.siguiente !== null) {
-                pod = pod.siguiente 
-            }
-            pod.end = producto
+           producto.anterior = this.end
+           this.end.siguiente = producto
+           this.end =producto
         }
         this.size++
         return producto.producto
@@ -43,7 +41,7 @@ class Almacen {
     }
     
     insertarProducto(producto, place){
-        if(place<0 || this.capacidad.length >= this.size){
+        if(place<0 || place >= this.size){
             return false
         }else{
             let pod = this.start
@@ -51,6 +49,7 @@ class Almacen {
 
             if(place==0){
                 producto.siguiente = pod
+                pod.anterior = producto
                 this.start = producto
             }else{
                 for(let i=0; i<place; i++){
@@ -58,59 +57,117 @@ class Almacen {
                     pod = pod.siguiente
                 }
                 producto.siguiente = pod
+                producto.anterior = anterior
                 anterior.siguiente = producto
+                pod.anterior = producto
             }
             this.size++
         } return producto.producto
     }
-    borrarProducto(idProducto){
-        if(idProducto<0 || idProducto>this.size){
-            return false
-        }
-        let pod = this.start
-        let anterior = null 
 
-        if(idProducto == 0){
-            this.head = pod.siguiente
-        }else{
-            for(let i=0; i<idProducto; i++){
+    borrarStart(){
+        if (this.start == null){
+            return false
+        } else {
+            let productoX = this.start.producto
+            if(this.size == 1){
+                this.start = null
+                this.end = null
+            }else{
+                this.start = this.start.siguiente
+                this.inicio.anterior = null
+            }
+            this.size--
+            return productoX
+        }
+    }
+
+    borrarEnd(){
+        if (this.end == null){
+            return false
+        } else {
+            let productoE = this.end.producto
+            if(this.size == 1){
+                this.start = null
+                this.end = null
+            }else{
+                this.end = this.end.anterior
+                this.end.siguiente = null
+            }
+            this.size--
+            return productoE
+        }
+    }
+
+
+    borrarProducto(codProducto){
+        let productoIncg = this.buscarProductoID(codProducto)
+        let anterior = null
+        if(productoIncg==this.start){
+            this.borrarStart()
+            return productoIncg.producto
+        } else if(productoIncg==this.end){
+            this.borrarEnd()
+            return productoIncg.producto
+        } else{
+            if(productoIncg !== false){
+                anterior = productoIncg.anterior
+                anterior.siguiente = productoIncg.siguiente
+                productoIncg.siguiente.anterior = anterior
+                this.size--
+                return productoIncg.producto
+            }
+        }
+        return false
+    }
+
+    buscarProductoID(codProducto){
+        let pod = this.start
+        let anterior = null
+       
+        if(codProducto == this.start.codigo){
+            return pod 
+        } else if(codProducto == this.end.codigo){
+            pod = this.end
+            return pod
+        } else{
+            while(pod !== null){
+                if(pod.codigo == codProducto){
+                    return pod
+                }
                 anterior = pod
                 pod = pod.siguiente
             }
-            anterior.siguiente = pod.siguiente
         }
-        this.size--
-        return pod.producto
-    }
-
-    buscarProductoID(codPrducto){
-        if(codPrducto<0 || codPrducto>=this.size){
-            return false
-        }
-        let pod = this.start
-        let anterior = null 
-            if(codPrducto == 0){
-                return pod.producto
-            } else{
-                for(let i=0; i<codPrducto; i++){
-                    anterior = pod
-                    pod = pod.siguiente
-                }
-                return pod.producto
-            }
+        return false
         }   
 
     listarProductos(){
         let pod = this.start
         let list = " "
         while(pod){
-            list += pod.producto += ","
+            list += `${pod.producto}, `
             pod = pod.siguiente
         }
         list += " Fin de lista"
         return list
         }
-} // final
+
+    listarProductos(){
+        let pod = this.end
+        let list = " "
+        while(pod){
+            list += `${pod.producto}, `
+            pod = pod.anterior
+        }
+        list += " Fin de lista"
+        return list
+        }
+
+
+} 
+
+// final 
 
 let pruebaAlmacen = new Almacen()
 let a1 = new Producto(556,"agua","agua ciel", 8, 20)
@@ -154,7 +211,9 @@ btnAgregar.addEventListener("click", () => {
     let precio = document.querySelector("#costo").value
     
     let producto = new Producto(codigo, nombreProducto, descripcion, cantidad, precio)
-    alert(almacen.agregarProducto(producto) + " se ha añadido al almacen.")
+    let mensaje = document.querySelector("#mensajeInicio")
+    let prodA = almacen.agregarProducto(producto)
+    mensaje.innerHTML = "Se ha añadido " + prodA
 })
 
 btnCalcular.addEventListener("click", () => {
@@ -165,8 +224,11 @@ btnCalcular.addEventListener("click", () => {
     let precio = document.querySelector("#costo").value
 
     let producto = new Producto(codigo, nombreProducto, descripcion, cantidad, precio)
-    alert(producto.calcularPrecio())
+    let mensaje = document.querySelector("#mensajeInicio")
+    let prodA = producto.calcularPrecio()
+    mensaje.innerHTML = prodA + " es el precio final de " + producto.producto 
 })
+
 btnInsertar.addEventListener("click", () => {
     let codigo = document.querySelector("#codigo").value
     let nombreProducto = document.querySelector("#nombre").value
@@ -176,7 +238,13 @@ btnInsertar.addEventListener("click", () => {
     let posicion = document.querySelector("#posicion").value
 
     let producto = new Producto(codigo, nombreProducto, descripcion, cantidad, precio)
-    alert(almacen.insertarProducto(producto, posicion))
+    let mensaje = document.querySelector("#mensajeInicio")
+    let valor = almacen.insertarProducto(producto, posicion)
+    if(valor!=false){
+        mensaje.innerHTML = valor + " se ha insertado correctamente"
+    } else{
+        mensaje.innerHTML = "Puso una posición incorrecta"
+    }
 })
 btnBorrar.addEventListener("click", () => {
     let codigo = document.querySelector("#codBorrar").value
