@@ -75,7 +75,7 @@ class Almacen {
                 this.end = null
             }else{
                 this.start = this.start.siguiente
-                this.inicio.anterior = null
+                this.start.anterior = null
             }
             this.size--
             return productoX
@@ -153,7 +153,7 @@ class Almacen {
         return list
         }
 
-    listarProductos(){
+    listarProductosInvertido(){
         let pod = this.end
         let list = " "
         while(pod){
@@ -193,6 +193,8 @@ var btnInsertar = document.querySelector("#btnInsertar")
 var btnBorrar = document.querySelector("#btnBorrar")
 var btnBuscar = document.querySelector("#btnBuscar")
 var btnListar= document.querySelector("#btnListar")
+var btnListarI= document.querySelector("#btnListarI")
+var btnBorrarPrimero = document.querySelector("#btnBorrarPrimero")
 
 let b1 = new Producto(556,"agua","agua ciel", 8, 20)
 let b2 = new Producto(557,"coca","coca-cola ", 2, 20)
@@ -246,17 +248,49 @@ btnInsertar.addEventListener("click", () => {
         mensaje.innerHTML = "Puso una posición incorrecta"
     }
 })
+
 btnBorrar.addEventListener("click", () => {
     let codigo = document.querySelector("#codBorrar").value
-    alert(almacen.borrarProducto(codigo))
+    let mensaje = document.querySelector("#mensajeInicio")
+    let valor = almacen.borrarProducto(codigo)
+    if (valor == false){
+        mensaje.innerHTML = "No se econtró el producto"
+    }else{
+        mensaje.innerHTML = "Se ha eliminado " + valor
+    }
 })
+
+btnBorrarPrimero.addEventListener("click", () => {
+    let mensaje = document.querySelector("#mensajeInicio")
+    let valor = almacen.borrarStart()
+    if (valor == false){
+        mensaje.innerHTML = "No hay productos en el almacen"
+    }else{
+        mensaje.innerHTML = "Se ha eliminado " + valor
+    }
+})
+
 btnBuscar.addEventListener("click", () => {
     let codigo = document.querySelector("#codBuscar").value
-    alert(almacen.buscarProductoID(codigo))
+    let mensaje = document.querySelector("#mensajeInicio")
+    let valor = almacen.buscarProductoID(codigo).producto
+    if (almacen.buscarProductoID(codigo) == false){
+        mensaje.innerHTML = "No se econtró el producto"
+    }else{
+        mensaje.innerHTML = "Se ha encontrado " + valor
+    }
 })
+
 btnListar.addEventListener("click", () => {
     let lista = document.querySelector("#lista1")
     let nuevoProd = document.createElement("li")
     nuevoProd.textContent = almacen.listarProductos()
+    lista.appendChild(nuevoProd)
+})
+
+btnListarI.addEventListener("click", () => {
+    let lista = document.querySelector("#lista2")
+    let nuevoProd = document.createElement("li")
+    nuevoProd.textContent = almacen.listarProductosInvertido()
     lista.appendChild(nuevoProd)
 })

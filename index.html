@@ -11,7 +11,7 @@
     <h1>Control de inventario</h1>
     <div>
         <label id="mensajeInicio"></label>
-        
+
         <h2>Añadir producto:</h2>
             <input type="number" id="codigo" name="Codigo" placeholder="Código del producto">
             <input type="text" id="nombre" name="Nombre" placeholder="Nombre del producto">
@@ -30,18 +30,27 @@
         </div>
         <div>
             <h3>Borrar Producto</h3>
-            <input type="number" id="codBorrar" name="Codigo" placeholder="Posición de producto">
+            <input type="number" id="codBorrar" name="Codigo" placeholder="Código de producto">
             <input type="button" id="btnBorrar" value="Borrar">
         </div>
         <div>
+            <h3>Borrar Primer Producto</h3>
+            <input type="button" id="btnBorrarPrimero" value="Borrar">
+        </div>
+        <div>
             <h3>Buscar Producto</h3>
-            <input type="number" id="codBuscar" name="Codigo" placeholder="Posición de producto">
+            <input type="number" id="codBuscar" name="Codigo" placeholder="Código de producto">
             <input type="button" id="btnBuscar" value="Buscar">
         </div>
         <div>
             <h3>Listar Producto</h3>
             <input type="button" id="btnListar" value="Listar">
             <ul id="lista1"></ul>
+        </div>
+        <div>
+            <h3>Listar Producto Invertido</h3>
+            <input type="button" id="btnListarI" value="Listar">
+            <ul id="lista2"></ul>
         </div>
 </body>
 <script src="main.js"></script>
